@@ -1,0 +1,19 @@
+Check the status:
+Copy code
+git status
+
+Stage changes:
+Copy code
+git add .
+
+Commit changes:
+Copy code
+git commit -m "Your commit message here"
+
+Push changes to GitHub:
+Copy code
+git push origin main
+
+Pull changes from GitHub (if needed):
+Copy code
+git pull origin main
