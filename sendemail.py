@@ -109,7 +109,8 @@ with open('status.txt', 'a', encoding='utf-8') as status_file:
             continue  # Move to the next email
 
         # Add a random delay between emails to avoid spamming
-        wait_time = random.randint(5, 10)  # Delay between 5 to 10 seconds for testing
+        wait_time = random.randint(60, 120)  # Delay between 1 to 2 minutes before sending
+        print(f"Waiting for {wait_time}s")
         time.sleep(wait_time)
 
 # Save the updated Excel file
