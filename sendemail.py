@@ -29,12 +29,25 @@ print(f"SMTP Host: {smtp_host}, Port: {smtp_port}, Sender Email: {sender_email}"
 workbook = openpyxl.load_workbook('emails.xlsx', data_only=True)
 sheet = workbook['Sheet1']
 
+# Create a new workbook for processed emails
+processed_workbook = openpyxl.Workbook()
+processed_sheet = processed_workbook.active
+processed_sheet.title = "Processed Emails"
+
+# Add headers to the processed emails sheet
+processed_sheet.append(["Email", "Company", "Status", "Timestamp"])
+
 # Function to check the validity of an email address
 def is_valid_email(email):
     if email:
         email = email.strip()  # Remove leading/trailing spaces
         return re.match(r'^[\w\.-]+@[\w\.-]+\.\w+$', email) is not None
     return False
+
+# Function to log email status in the processed emails workbook
+def log_email_status(email, company, status):
+    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    processed_sheet.append([email, company, status, timestamp])
 
 # Extract recipient details from the Excel file
 recipient_details = []
@@ -93,18 +106,18 @@ with open('status.txt', 'a', encoding='utf-8') as status_file:
             server.sendmail(sender_email, [email, bcc_email], message.as_string())
             print(f"Email sent to {email}")
 
-            # Log the success status to the Excel file and status file
-            now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            sheet.cell(row=index, column=4, value=f"Sent {now}")  # Update status in Column D
+            # Log success in both original and processed files
+            log_email_status(email, company, "Sent")
             status_file.write(f"Email sent to {email}\n")
+
         except UnicodeEncodeError as ue:
             print(f"Encoding error sending email to {email}: {ue}")
-            sheet.cell(row=index, column=4, value=f"Encoding error: {ue}")  # Log error in Column D
+            log_email_status(email, company, f"Encoding error: {ue}")
             status_file.write(f"Encoding error sending email to {email}: {ue}\n")
             continue  # Move to the next email
         except Exception as e:
             print(f"Error sending email to {email}: {e}")
-            sheet.cell(row=index, column=4, value=f"Error: {e}")  # Log error in Column D
+            log_email_status(email, company, f"Error: {e}")
             status_file.write(f"Error sending email to {email}: {e}\n")
             continue  # Move to the next email
 
@@ -113,8 +126,9 @@ with open('status.txt', 'a', encoding='utf-8') as status_file:
         print(f"Waiting for {wait_time}s")
         time.sleep(wait_time)
 
-# Save the updated Excel file
+# Save the updated Excel files
 workbook.save('emails_sent.xlsx')
+processed_workbook.save('processed_emails.xlsx')
 
 # Disconnect from the SMTP server
 server.quit()
