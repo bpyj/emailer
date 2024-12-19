@@ -81,7 +81,10 @@ with open('status.txt', 'a', encoding='utf-8') as status_file:
         try:
             # Create the email message
             message = MIMEMultipart()
-            message['From'] = sender_email
+            
+            # Set the sender with a display name
+            sender_display_name = "Ben"
+            message['From'] = formataddr((sender_display_name, sender_email))            
             message['To'] = email
             message['Bcc'] = bcc_email
             subject_company = company if company else "Your Industry"
