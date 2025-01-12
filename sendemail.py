@@ -92,10 +92,10 @@ with open('status.txt', 'a', encoding='utf-8') as status_file:
             message['Subject'] = f'One-Stop Solution for High-Quality Panels and Enclosures for {subject_company}'
             message['Date'] = formatdate(localtime=True)
 
-            # Read the email body content from a text file
-            with open('message.txt', 'r', encoding='utf-8') as file:
+            # Read the email body content from a html file
+            with open('message.html', 'r', encoding='utf-8') as file:
                 body = file.read()
-            message.attach(MIMEText(body, 'plain', 'utf-8'))  # Ensure UTF-8 encoding
+            message.attach(MIMEText(body, 'html', 'utf-8'))  # Attach as HTML content
 
             # Attach the product brochure
             file_path = 'product_brochure.pdf'
