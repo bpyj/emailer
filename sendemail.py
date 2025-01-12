@@ -5,6 +5,7 @@ from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
 from email.utils import formatdate
+from email.utils import formataddr
 from dotenv import load_dotenv
 import os
 import openpyxl
