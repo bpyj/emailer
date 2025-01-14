@@ -5,18 +5,32 @@
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
-            margin: 20px;
+            margin: 0;
+            padding: 0;
             color: #333;
+            width: 100% !important;
+            min-width: 100% !important;
+        }
+        table {
+            border-collapse: collapse !important;
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+            width: 100%;
         }
         .container {
+            width: 600px;
+            max-width: 600px;
+            margin: 0 auto;
             background-color: #f9f9f9;
             padding: 20px;
             border-radius: 10px;
-            max-width: 600px;
-            margin: auto;
+        }
+        .content {
+            padding: 20px;
         }
         h1 {
             color: #d9534f;
+            text-align: center;
         }
         .footer {
             margin-top: 20px;
@@ -27,25 +41,58 @@
             text-align: center;
             margin: 20px 0;
         }
+        
+        @media only screen and (max-width: 480px) {
+            .container {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 10px !important;
+            }
+            .content {
+                padding: 10px !important;
+            }
+            h1 {
+                font-size: 1.5em !important;
+                text-align: center;
+            }
+            p {
+                font-size: 1em !important;
+            }
+            .footer {
+                font-size: 0.8em !important;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Greetings from SUNNY METAL!</h1>
-        <p>As we approach the festive season, we would like to inform you of our Chinese New Year shutdown period.</p>
-        
-        <div class="image">
-            <img src="https://i.imgur.com/rMZJQMo.png" alt="CNY SHUTDOWN PERIOD" width="100%">
-        </div>
-        
-        <p><strong>Shutdown Period:</strong> 25 JAN 2025 to 2 FEB 2025</p>
-        <p><strong>Business Resumption:</strong> 3 FEB 2025</p>
-        <p>We wish you a prosperous and joyful Chinese New Year! Thank you for your continued support, and we look forward to serving you in the coming year.</p>
-        
-        <div class="footer">
-            Best regards,<br>
-            The SUNNY METAL Team
-        </div>
-    </div>
+    <!-- Outer wrapper table -->
+    <table width="100%" cellspacing="0" cellpadding="0">
+        <tr>
+            <td align="center">
+                <!-- Inner content table -->
+                <table width="600" cellspacing="0" cellpadding="0" class="container">
+                    <tr>
+                        <td class="content">
+                            <h1>Greetings from SUNNY METAL!</h1>
+                            <p>As we approach the festive season, we would like to inform you of our Chinese New Year shutdown period.</p>
+
+                            <div class="image">
+                                <img src="https://i.imgur.com/rMZJQMo.png" alt="CNY SHUTDOWN PERIOD" width="100%">
+                            </div>
+
+                            <p><strong>Shutdown Period:</strong> 25 JAN 2025 to 2 FEB 2025</p>
+                            <p><strong>Business Resumption:</strong> 3 FEB 2025</p>
+                            <p>We wish you a prosperous and joyful Chinese New Year! Thank you for your continued support, and we look forward to serving you in the coming year.</p>
+
+                            <div class="footer">
+                                Best regards,<br>
+                                The SUNNY METAL Team
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
